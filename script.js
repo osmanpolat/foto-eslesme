@@ -14,22 +14,23 @@ const cardTemplate = `
         </div>
     </div>
 `;
-
-let randomNum = function(){
+//Görev 2
+let randomNum = function() {
     let randomArray = [];
-    for (let i = 0; i < 8; i++){
-       let randomNumbers = Math.floor(Math.random() * 99);
-        randomArray.push(randomNumbers, randomNumbers);
-        if (randomArray.length > 6) break;
+    while (randomArray.length < 8) {
+        let randomNumber = Math.floor(Math.random() * 99) + 1; // 1 ile 99 arasında sayı
+        if (!randomArray.includes(randomNumber)) {
+            randomArray.push(randomNumber, randomNumber); // Çift olarak ekliyoruz
+        }
     }
-    return randomArray
+    return randomArray.sort(() => Math.random() - 0.5); // Karıştırarak döndürüyoruz
 };
 
-
+const photoNumbers = randomNum();
 /*
 Görev 2: Bu numaraları 1-99 arası(1 ve 99 dahil) sayılardan rastgele 4 çift oluşturacak şekilde üreten bir fonksiyon yazarak, kod bloğundaki array değerini bu fonksiyondan dönen array ile değiştiren kodları yazın
 */
-const photoNumbers = [10, 20, 30, 20, 10, 40, 40, 30];
+//const photoNumbers = [10, 20, 30, 20, 10, 40, 40, 30];
 
 
 console.log(photoNumbers);
@@ -101,6 +102,9 @@ function cardClick(event) {
       /*
             Görev 1: Kullanıcı 4 kartı da eşleştirdiğinde sayfa ortasında beliren hareketli gif dosyası formatında bir kutlama görseli belirsin ve bu fotoğraf 5 saniye sonra ortadan kaybolsun.
         */
+            if (point === 4) {
+                showCelebration();
+            }
 
 
       openCard.classList.remove("open");
@@ -117,4 +121,12 @@ function cardClick(event) {
             selectedCard.classList.remove("open");
         }, 1500);
     }
+}
+
+function showCelebration() {
+    const celebration = document.getElementById('celebration');
+    celebration.classList.remove('hidden');
+    setTimeout(() => {
+        celebration.classList.add('hidden');
+    }, 5000);
 }
